@@ -1,0 +1,21 @@
+.popup__input_type_login {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 30px;
+  min-height: 27px;
+  border: none;
+  border-bottom: 2px solid #cccccc;
+  box-sizing: border-box;
+  padding: 0;
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.popup__input_type_login:last-of-type {
+  margin-bottom: 0;
+}
+
+.popup__input_type_login::placeholder {
+  color: #ccc;
+}

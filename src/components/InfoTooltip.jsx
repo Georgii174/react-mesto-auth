@@ -1,15 +1,11 @@
-import React from "react";
-import success from "../images/success.svg";
-import fail from "../images/fail.svg";
-
-function InfoTooltip({ isOpen, onClose, isSuccess }) {
+function InfoTooltip({ isOpen, onClose, title, path}) {
 
   return (
     <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
         <button type="button" className="popup__close" onClick={onClose}></button>
-        <img className="popup__success-images" src={`${isSuccess ? success : fail}`} alt="" />
-        <h2 className="popup__success-title">{`${isSuccess ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз."}`}</h2>
+        <img className="popup__success-images" src={path} alt={path} />
+        <h2 className="popup__success-title">{title}</h2>
       </div>
     </div>
   )

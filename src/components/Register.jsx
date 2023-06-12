@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import Auth from "./Auth";
+import Header from "./Header";
 
-function Register({ onRegister}) {
+function Register({ onRegister, isLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,25 +20,23 @@ function Register({ onRegister}) {
   }
 
   return (
-    <div className="auth">
-      <div className="auth__container">
-        <form className="auth__form" name="register" id="register-form" onSubmit={handleSubmit} noValidate>
-          <h2 className="auth__title">Вход</h2>
-           <input type="text" className="auth__input"
-           name="register-email" id="register-email"
-           placeholder="Email"
-           value={email}
-           onChange={handleChangeEmail} />
-           <input type="text" className="auth__input"
-           name="register-password" id="register-password"
-           placeholder="Пароль"
-           value={password}
-           onChange={handleChangePassword} />
-           <button type="submit" className="auth__button-save" id="login-button-save">Зарегистрироваться</button>
-           <Link to="./sing-in" className="auth__button">Уже зарегистрированы? Войти</Link>
-        </form>
+    <>
+      <Header />
+      <div className="register">
+        <Auth formName='register' onSubmit={handleSubmit} title='Регистрация' buttonText='Зарегистрироваться'>
+          <input type="email" className="popup__input popup__input_type_login"
+            id="email-input" name="email"
+            placeholder="Email" minLength="8" maxLength="40" required
+            onChange={handleChangeEmail}
+            value={email || ''} />
+          <input type="password" className="popup__input popup__input_type_login"
+            id="pass-input" name="pass"
+            placeholder="Пароль" minLength="6" maxLength="200" required
+            onChange={handleChangePassword}
+            value={password || ''} />
+        </Auth>
       </div>
-    </div>
+    </>
   )
 }
 
