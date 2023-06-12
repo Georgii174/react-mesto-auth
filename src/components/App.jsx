@@ -14,7 +14,7 @@ import Register from './Register';
 import ConfirmPopup from './ConfirmPopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { api } from '../utils/Api';
-import {apiAuth}  from '../utils/ApiAuth';
+import { apiAuth } from '../utils/ApiAuth';
 // import { api, apiAuth } from '../utils';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -51,21 +51,21 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) return;
-      api
-        .getUserInfo()
-        .then((data) => {
-          setCurrentUser(data)
-        })
-        .catch((err) =>
-          console.log(err));
+    api
+      .getUserInfo()
+      .then((data) => {
+        setCurrentUser(data)
+      })
+      .catch((err) =>
+        console.log(err));
 
-      api
-        .getInitialCards()
-        .then((res) => {
-          setCards([...res]);
-        })
-        .catch((err) =>
-          console.log(err));
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards([...res]);
+      })
+      .catch((err) =>
+        console.log(err));
   }, [isLoggedIn])
 
   function handleEditProfileClick() {
@@ -159,19 +159,21 @@ function App() {
         localStorage.setItem('jwt', res.token)
       )
       .then(() =>
-        setIsLoggedIn(true)
+        setIsLoggedIn(true),
+        setMassage({ path: success, text: 'Вход выполнен!' })
       )
       .catch(err => {
+        setMassage({ path: fail, text: 'Что-то пошло не так! Попробуйте ещё раз.' })
         console.log(err);
       })
-
+      .finally(() => setIsInfoTooltipPopupOpen(true));
   }
 
   function handleRegister(email, password) {
     apiAuth
       .signup({ email, password })
-      .then((result) => {
-        setProfileEmail(result.data.email)
+      .then((res) => {
+        setProfileEmail(res.data.email)
         setMassage({ path: success, text: 'Вы успешно зарегистрировались!' })
       })
       .catch(err => {
@@ -191,20 +193,10 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path='sign-in' element={
-            <Login onAuthorize={handleAuthorize} isLoading={isLoggedIn} />
-          }
-          />
-          <Route path='sign-up' element={
-            <Register onRegister={handleRegister} isLoading={isLoggedIn} />
-          }
-          />
-          {/* <Route path='*' element={
-            isLoggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' />
-          }
-          /> */}
           <Route path='/' element={
             <ProtectedRoute
+              element={Main}
+              email={profileEmail}
               onEditAvatar={handleEditAvatarClick}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
@@ -213,10 +205,20 @@ function App() {
               onCardDelete={handleCardDeleteClick}
               cards={cards}
               loggedIn={isLoggedIn}
-              element={Main}
               onSignOut={handleSignOut}
-              email={profileEmail}
             />
+          }
+          />
+          <Route path='sign-in' element={
+            <Login onAuthorize={handleAuthorize} isLoading={isLoggedIn} />
+          }
+          />
+          <Route path='sign-up' element={
+            <Register onRegister={handleRegister} isLoading={isLoggedIn} />
+          }
+          />
+          <Route path='*' element={
+            isLoggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' />
           }
           />
         </Routes>

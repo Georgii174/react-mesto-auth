@@ -9,21 +9,28 @@ function Header({ email, onSignOut, isLoggedIn }) {
     <header className="header">
         <img src={logo} alt="место" className="header__logo" />
         {location.pathname === '/sign-in' && (
-          <Link className='header__link' to={'/sing-up'}>Регистрация</Link>
+          <Link className='header__link' to={'/sign-up'}>Регистрация</Link>
         )}
         {location.pathname === '/sign-up' && (
-          <Link className='header__link' to={'/sing-in'}>Войти</Link>
+          <Link className='header__link' to={'/sign-in'}>Войти</Link>
         )}
         {isLoggedIn && (
+          <>
           <div className='header__exit'>
             {email}
-            <Link className='header__link' to={'/sing-in'} onClick={onSignOut}>
+            <Link className='header__link' to={'/sign-in'} onClick={onSignOut}>
               Выйти
             </Link>
           </div>
+          </>
         )}
     </header>
   )
 }
 
 export default Header
+
+
+
+
+

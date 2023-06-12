@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Auth from "./Auth";
 import Header from "./Header";
-
 
 function Login({ onAuthorize, isLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   function handleChangeEmail(evt) {
     setEmail(evt.target.value);
@@ -18,26 +16,16 @@ function Login({ onAuthorize, isLoggedIn }) {
     setPassword(evt.target.value);
   }
 
-
   function handleSubmit(evt) {
     evt.preventDefault();
     onAuthorize(email, password);
   }
-  // function handleChange(evt) {
-  //   const { value } = evt.target;
-  //   evt.target.name === 'Email' ? setEmail(value) : setPassword(value);
-  // }
 
-  // function handleSubmit(evt) {
-  //   evt.preventDefault();
-  //   onAuthorize(email, password);
-  // }
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate('/');
-  //   }
-  // }, [isLoggedIn, navigate]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <>

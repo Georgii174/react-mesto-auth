@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Auth from "./Auth";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 function Register({ onRegister, isLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   function handleChangeEmail(evt) {
     setEmail(evt.target.value);
@@ -18,6 +20,12 @@ function Register({ onRegister, isLoggedIn }) {
     evt.preventDefault();
     onRegister(email, password);
   }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <>
