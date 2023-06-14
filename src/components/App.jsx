@@ -15,7 +15,6 @@ import ConfirmPopup from './ConfirmPopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { api } from '../utils/Api';
 import { apiAuth } from '../utils/ApiAuth';
-// import { api, apiAuth } from '../utils';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {
@@ -193,28 +192,30 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path='/' element={
-            <ProtectedRoute
-              element={Main}
-              email={profileEmail}
-              onEditAvatar={handleEditAvatarClick}
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDeleteClick}
-              cards={cards}
-              loggedIn={isLoggedIn}
-              onSignOut={handleSignOut}
-            />
-          }
+          <Route
+            path='/'
+            element={
+              <ProtectedRoute
+                element={Main}
+                userEmail={profileEmail}
+                onEditAvatar={handleEditAvatarClick}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDeleteClick}
+                cards={cards}
+                isLoggedIn={isLoggedIn}
+                onSignOut={handleSignOut}
+              />
+            }
           />
           <Route path='sign-in' element={
-            <Login onAuthorize={handleAuthorize} isLoading={isLoggedIn} />
+            <Login onAuthorize={handleAuthorize} isLoggedIn={isLoggedIn} />
           }
           />
           <Route path='sign-up' element={
-            <Register onRegister={handleRegister} isLoading={isLoggedIn} />
+            <Register onRegister={handleRegister} isLoggedIn={isLoggedIn} />
           }
           />
           <Route path='*' element={

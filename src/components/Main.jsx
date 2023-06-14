@@ -3,13 +3,13 @@ import Card from './Card'
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete, cards, isLoggedIn, onSignOut, email }) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete, cards, isLoggedIn, onSignOut, profileEmail }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} email={email} onSignOut={onSignOut} />
+      <Header isLoggedIn={isLoggedIn} userEmail={profileEmail} onSignOut={onSignOut} />
       <main className="content">
         <section className="profail">
           <div className="profail__avatar">

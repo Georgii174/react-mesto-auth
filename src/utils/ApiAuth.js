@@ -1,14 +1,20 @@
-import hendleResponse from './utils'
-
 class ApiAuth {
   constructor ({baseUrl, headers}) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
 
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ой...: ${res.status}`);
+  }
+
   async _request(url, options) {
     const res = await fetch(url, options);
-    return hendleResponse(res);
+    return this._checkResponse(res);
   }
 
   checkToken(token) {

@@ -1,12 +1,11 @@
 import React from 'react';
 import ClosePopup from '../hook/ClosePopup';
 
-function PopupWithForm({ title, name, children, isOpen, onClose, buttonText, onSubmit }) {
+function PopupWithForm({ title, name, children, isOpen, onClose, buttonText, onSubmit, onLoading, isDisabled }) {
 
   const {handleCloseOnOverlay} = ClosePopup(isOpen, onClose)
 
   return (
-    <>
       <div
       onMouseDown={handleCloseOnOverlay}
       className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
@@ -15,11 +14,11 @@ function PopupWithForm({ title, name, children, isOpen, onClose, buttonText, onS
           <h3 className="popup__title">{`${title}`}</h3>
           <form className="popup__form popup__form-profel" name={`popup-form-${name}`} onSubmit={onSubmit}>
             {children}
-            <button className="popup__button-save" type="submit">{buttonText}</button>
+            <button type="submit" className={`popup__button-save ${onLoading ? "popup__button-save_loading" : ""}
+      ${isDisabled ? "popup__button-save_disabled" : ""} `} >{buttonText}</button>
           </form>
         </div>
       </div>
-    </>
   )
 }
 

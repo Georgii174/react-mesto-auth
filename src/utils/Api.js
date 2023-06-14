@@ -33,7 +33,7 @@ class Api {
     return this._fetch('/users/me', 'PATCH', data);
   }
 
-  addNewCard(data) {
+  addCard(data) {
     return this._fetch('/cards', 'POST', data);
   }
 

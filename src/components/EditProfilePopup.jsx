@@ -4,7 +4,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Validation from "../hook/Validation";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
-  const { enteredValue, error, isValid, handleChange, resetForm } = Validation();
+  const { enteredValue, errors, isFormValid, handleChange, resetForm } = Validation();
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
@@ -28,23 +28,23 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText={'Сохранить'}
+      buttonText={onLoading ? `Сохранение` : `Сохранить`}
       onLoading={onLoading}
-      isDisabled={!isValid}>
+      isDisabled={!isFormValid}>
 
-      <input type="text" className={error.name ? "popup__input popup__input_name_block" : "popup__input"}
+      <input type="text" className={errors.name ? "popup__input popup__input_name_block" : "popup__input"}
         id="name-input" name="name"
         placeholder="Имя" minLength="2" maxLength="40" required
         onChange={handleChange}
         value={enteredValue.name || ''} />
-      <span className="popup__error popup__error_visible name-input-error">{error.name}</span>
+      <span className="popup__error popup__error_visible name-input-error">{errors.name}</span>
 
-      <input type="text" className={error.about ? "popup__input popup__input_text_block" : "popup__input"}
+      <input type="text" className={errors.about ? "popup__input popup__input_text_block" : "popup__input"}
         id="job-input" name="about"
         placeholder="Вид деятельности" minLength="2" maxLength="200" required
         onChange={handleChange}
         value={enteredValue.about || ''} />
-      <span className="popup__error popup__error_visible job-input-error">{error.about}</span>
+      <span className="popup__error popup__error_visible job-input-error">{errors.about}</span>
 
     </PopupWithForm>
   )
