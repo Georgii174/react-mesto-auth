@@ -29,7 +29,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   const [profileEmail, setProfileEmail] = useState('');
-  const [massage, setMassage] = useState({ path: '', text: '' });
+  const [message, setMessage] = useState({ path: '', text: '' });
 
   useEffect(() => {
     async function checkAuth() {
@@ -155,17 +155,14 @@ function App() {
     apiAuth
       .signin({ email, password })
       .then((res) =>
-        localStorage.setItem('jwt', res.token)
+        localStorage.setItem('JWT', res.token)
       )
       .then(() =>
         setIsLoggedIn(true),
-        setMassage({ path: success, text: 'Вход выполнен!' })
       )
       .catch(err => {
-        setMassage({ path: fail, text: 'Что-то пошло не так! Попробуйте ещё раз.' })
         console.log(err);
       })
-      .finally(() => setIsInfoTooltipPopupOpen(true));
   }
 
   function handleRegister(email, password) {
@@ -173,10 +170,10 @@ function App() {
       .signup({ email, password })
       .then((res) => {
         setProfileEmail(res.data.email)
-        setMassage({ path: success, text: 'Вы успешно зарегистрировались!' })
+        setMessage({ path: success, text: 'Вы успешно зарегистрировались!' })
       })
       .catch(err => {
-        setMassage({ path: fail, text: 'Что-то пошло не так! Попробуйте ещё раз.' })
+        setMessage({ path: fail, text: 'Что-то пошло не так! Попробуйте ещё раз.' })
         console.log(err);
       })
       .finally(() => setIsInfoTooltipPopupOpen(true));
@@ -253,8 +250,8 @@ function App() {
         <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopup}
-          title={massage.text}
-          path={massage.path}
+          title={message.text}
+          path={message.path}
         />
       </div>
     </CurrentUserContext.Provider>

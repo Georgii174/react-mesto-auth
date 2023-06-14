@@ -1,9 +1,9 @@
 import React from 'react';
-import ClosePopup from '../hook/ClosePopup';
+import useClosePopup from '../hook/useClosePopup';
 
 function PopupWithForm({ title, name, children, isOpen, onClose, buttonText, onSubmit, onLoading, isDisabled }) {
 
-  const {handleCloseOnOverlay} = ClosePopup(isOpen, onClose)
+  const {handleCloseOnOverlay} = useClosePopup(isOpen, onClose)
 
   return (
       <div

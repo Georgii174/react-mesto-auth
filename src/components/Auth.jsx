@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Auth({formName, onSubmit, title, children, buttonText}) {
   return (
     <div className="auth">
-      <form className="auth__form" name={formName} onSubmit={onSubmit} noValidate>
+      <form className="auth__form" name={formName} onSubmit={onSubmit}>
         <h2 className="auth__title">{title}</h2>
         {children}
         <button type="submit" className="auth__button">{buttonText}</button>

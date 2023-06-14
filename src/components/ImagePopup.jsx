@@ -1,9 +1,9 @@
 import React from 'react';
-import ClosePopup from '../hook/ClosePopup';
+import useClosePopup from '../hook/useClosePopup';
 
 function ImagePopup({card, isOpen, onClose}) {
 
-  const {handleCloseOnOverlay} = ClosePopup(isOpen, onClose)
+  const {handleCloseOnOverlay} = useClosePopup(isOpen, onClose)
 
   return (
     <>
